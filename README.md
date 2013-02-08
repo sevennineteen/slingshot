@@ -11,7 +11,7 @@ The only requirement is that you write your payloads to files in the Pyslinger-s
 
 Send a payload to Slingshot with an HTTP POST like so:
 
-    curl -F payload=@page_example.json http://localhost:5000/</code>
+    curl -F payload=@page_example.json http://localhost:5000/
 
 Use `-F` to set additional configurations:
 
