@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, jsonify, Markup
+from flask import Flask, request, jsonify, Markup
 from pyslinger import pyslinger
 import simplejson as json
 
@@ -13,9 +13,14 @@ def load_item():
             <code>curl -F payload=@page_example.json %s</code>
             ''' % request.url)
     if request.method == 'POST' and 'payload' in request.files:
+
+        # Update CQ credentials (cq_server, username, password) if passed
+        for field in request.form:
+            setattr(pyslinger, field.upper(), request.form[field])
+
         payload = json.load(request.files['payload'])
         result = pyslinger.load_item(payload)
-        return make_response(jsonify(result))
+        return jsonify(result)
 
 if __name__ == "__main__":
     app.run(debug=True)
